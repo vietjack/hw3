@@ -4,16 +4,24 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements OnClickListener{
 
 	private Button mButtonStart;
 	private Button mButtonReset;
 	private Button[][] mButtonGrid;
+	private ColorResourceMap mColorMap;
 	
 	private static final int GRID_ROWS = 4;
 	private static final int GRID_COLS = 5;
+	
+	StartClickHandler mStartHandler;
+	ResetClickHandler mResetHandler;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +30,10 @@ public class GameActivity extends Activity {
 		
 		//Get references to the views in the layout
 		getReferenceToViews();
+		
+		//Create a new Drawable map to get drawable
+		mColorMap = new ColorResourceMap(getResources());
+		
 	}
 
 	private void getReferenceToViews() {
@@ -50,21 +62,48 @@ public class GameActivity extends Activity {
 		mButtonGrid[3][3] = (Button) findViewById(R.id.button33);
 		mButtonGrid[3][4] = (Button) findViewById(R.id.button34);
 		
+		//Set the tag object to hold the views location in the grid
+		for(int i = 0; i < GRID_ROWS*GRID_COLS; i++) {
+			int row = i / GRID_COLS;
+			int col = i % GRID_COLS;
+			mButtonGrid[row][col].setTag(new RowColumnPair(row, col));
+			mButtonGrid[row][col].setOnClickListener(this);
+		}
+		
 		//Grab references to the start and reset buttons.
 		mButtonStart = (Button) findViewById(R.id.buttonStart);
 		mButtonReset = (Button) findViewById(R.id.buttonReset);
 		
-		//Get resources to the color PNG files
-		Resources res = getResources();
-		Drawable black  = res.getDrawable(R.drawable.black);
-		Drawable blue   = res.getDrawable(R.drawable.blue);
-		Drawable brown  = res.getDrawable(R.drawable.brown);
-		Drawable green  = res.getDrawable(R.drawable.green);
-		Drawable orange = res.getDrawable(R.drawable.orange);
-		Drawable pink   = res.getDrawable(R.drawable.pink);
-		Drawable purple = res.getDrawable(R.drawable.purple);
-		Drawable red    = res.getDrawable(R.drawable.red);
-		Drawable white  = res.getDrawable(R.drawable.white);
-		Drawable yellow = res.getDrawable(R.drawable.yellow);
+		mButtonStart.setOnClickListener(mStartHandler);
+		mButtonReset.setOnClickListener(mResetHandler);
 	}
+
+	@Override
+	public void onClick(View v) {
+		RowColumnPair rowCol = (RowColumnPair) v.getTag();
+	}
+	
+	private class StartClickHandler implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			
+		}
+		
+	}
+	
+	private class ResetClickHandler implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			
+		}
+		
+	}
+	
+	public interface MatchingGameView {
+		void show(RowColumnPair rcp, Drawable drawable);
+		void hide(RowColumnPair rcp);
+	}
+	
 }
