@@ -11,6 +11,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GameActivity" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Timer:  " />
+
+        <TextView
+            android:id="@+id/textViewTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
     <GridLayout android:id="@+id/grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,123 +39,144 @@
 
         <ImageButton android:id="@+id/button00"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY"/>
 
         <ImageButton android:id="@+id/button01"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button02"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button03"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
         <ImageButton android:id="@+id/button04"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
         <ImageButton android:id="@+id/button10"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
         <ImageButton android:id="@+id/button11"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
         <ImageButton android:id="@+id/button12"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
         <ImageButton android:id="@+id/button13"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button14"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button20"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
         <ImageButton android:id="@+id/button21"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
         <ImageButton android:id="@+id/button22"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button23"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button24"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button30"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button31"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button32"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" 
+            android:scaleType="fitXY" />
 
         <ImageButton android:id="@+id/button33"
             android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"  />
 
-        <ImageButton android:id="@+id/button34"
-            android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"  />
+        <ImageButton
+            android:id="@+id/button34"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher" />
 
     </GridLayout>
 
@@ -156,13 +196,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reset" />
-
-        <TextView
-            android:id="@+id/textViewTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
