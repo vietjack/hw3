@@ -1,11 +1,16 @@
 package com.javangon.matchinggame;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.javangon.matchinggame.GamePlayManager.MatchingGameView;
 
@@ -14,20 +19,33 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 	private Button mButtonStart;
 	private Button mButtonReset;
 	private ImageButton[][] mButtonGrid;
+	private TextView mTextViewWinner;
+	private TextView mTimerView;
+	private GridLayout mGridLayout;
+	
 	private ColorResourceMap mColorMap;
 	private GamePlayManager mGamePlayManager;
 	
 	private static final int GRID_ROWS = 4;
 	private static final int GRID_COLS = 5;
 	
+	private int mTimeElapsed = 0;
+	
+	private Timer mGameTimer;
+	
 	StartClickHandler mStartHandler;
 	ResetClickHandler mResetHandler;
+	
+	private boolean mGameActive = false;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+
+		mResetHandler = new ResetClickHandler();
+		mStartHandler = new StartClickHandler();
 		
 		//Get references to the views in the layout
 		getReferenceToViews();
@@ -36,6 +54,8 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 		mColorMap = new ColorResourceMap(getResources());
 		
 		mGamePlayManager = new GamePlayManager(this);
+		
+		mTimerView.setText("0");
 	}
 
 	private void getReferenceToViews() {
@@ -78,11 +98,21 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 		
 		mButtonStart.setOnClickListener(mStartHandler);
 		mButtonReset.setOnClickListener(mResetHandler);
+		
+		mTextViewWinner = (TextView) findViewById(R.id.textViewWinner);
+		mTimerView = (TextView) findViewById(R.id.textViewTimer);
+		
+		mGridLayout = (GridLayout) findViewById(R.id.grid);
+		mGridLayout.setActivated(false);
 	}
 
 	@Override
 	public void onClick(View v) {
 		RowColumnPair rowCol = (RowColumnPair) v.getTag();
+		if(!mGameActive) {
+			mTextViewWinner.setText("click start to play");
+			return;
+		}
 		try {
 			mGamePlayManager.select(rowCol);
 		} catch (Exception e) {
@@ -95,7 +125,29 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 
 		@Override
 		public void onClick(View v) {
-			
+			if(mGameActive == true) return; //
+			mGameActive = true;
+			mTextViewWinner.setText("");
+			mTimerView.setText("0");
+			if(mGameTimer != null) {
+				mGameTimer.cancel();
+				mGameTimer = null;
+			}
+			mGameTimer = new Timer();
+			mGameTimer.scheduleAtFixedRate(new TimerTask() {
+				
+				@Override
+				public void run() {
+					mTimeElapsed++;
+					runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							mTimerView.setText(""+mTimeElapsed);
+						}
+					});
+				}
+			}, 1000, 1000);
 		}
 		
 	}
@@ -104,27 +156,63 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 
 		@Override
 		public void onClick(View v) {
-			
+			mGameActive = false;
+			for(int i=0; i<20; i++) {
+				int r = i / 5;
+				int c = i % 5;
+				mButtonGrid[r][c].setImageResource(R.drawable.ic_launcher);
+			}
+			mGamePlayManager.reset();
+			mTextViewWinner.setText("");
+			if(mGameTimer != null) {
+				mGameTimer.cancel();
+				mGameTimer = null;
+			}
+			mTimeElapsed = 0;
+			mTimerView.setText("" + mTimeElapsed);
 		}
 		
 	}
 
-	@Override
-	public void show(RowColumnPair rcp, Color color) {
-		int r = rcp.getRow();
-		int c = rcp.getColumn();
-		ImageButton b = mButtonGrid[r][c];
-		b.setImageDrawable(mColorMap.getDrawable(color));
+	public void show(final RowColumnPair rcp, final Color color) {
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				int r = rcp.getRow();
+				int c = rcp.getColumn();
+				ImageButton b = mButtonGrid[r][c];
+				b.setImageDrawable(mColorMap.getDrawable(color));
+			}
+		});
+	}
+
+	public void hide(final RowColumnPair rcp) {
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				int r = rcp.getRow();
+				int c = rcp.getColumn();
+				ImageButton b = mButtonGrid[r][c];
+				b.setImageResource(R.drawable.ic_launcher);
+			}
+		});
 	}
 
 	@Override
-	public void hide(RowColumnPair rcp) {
-		int r = rcp.getRow();
-		int c = rcp.getColumn();
-		ImageButton b = mButtonGrid[r][c];
-		b.setImageResource(R.drawable.ic_launcher);
+	public void declareWinner() {
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				mTextViewWinner.setText("winner!");
+				if(mGameTimer != null) {
+					mGameTimer.cancel();
+					mGameTimer = null;
+				}
+			}
+		});
 	}
-	
-	
 	
 }

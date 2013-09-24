@@ -2,6 +2,8 @@ package com.javangon.matchinggame;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //Create 3 timers, 1 for each possible revealed cell.  Start each timer when the cell is revealed
 //if a second cell is selected then the first cells timer can be set to the second timers
@@ -11,6 +13,10 @@ public class GamePlayManager {
 	private List<RowColumnPair> guessList;
 	private MatchingGameView host;
 	
+	private Timer mTimer = null;
+	
+	private int mMatchesFound = 0;
+	
 	public GamePlayManager(MatchingGameView host) {
 		grid = new GameGrid();
 		guessList = new LinkedList<RowColumnPair>();
@@ -19,12 +25,17 @@ public class GamePlayManager {
 	//Start method to begin timer
 	
 	//Select method for when a grid space is selected
-	public void select(RowColumnPair rcp) throws Exception {
+	public void select(final RowColumnPair rcp) throws Exception {
 		//Check that the selected cell is not already revealed or matched
 		if(grid.isMatched(rcp) || grid.isRevealed(rcp)) {
 			return;
 		}
 
+		//Cancel all timers
+		if(mTimer != null) {
+			mTimer.cancel();
+			mTimer = null;
+		}
 		guessList.add(rcp);
 		int revealed = guessList.size();
 		//Set cell as revealed
@@ -34,6 +45,16 @@ public class GamePlayManager {
 		//If it's the first guess, reveal for 3 seconds
 		if(revealed == 1) {
 			//Start that cells timer
+			mTimer = new Timer();
+			mTimer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					host.hide(rcp);
+					grid.hide(rcp);
+					guessList.remove(rcp);
+				}
+			}, 3000);
 		}
 		else if(revealed == 2) {
 			RowColumnPair firstGuess = guessList.get(0);
@@ -49,9 +70,26 @@ public class GamePlayManager {
 				grid.setMatched(firstGuess, secondGuess);
 				guessList.remove(0);
 				guessList.remove(0);
+				mMatchesFound++;
+				if(mMatchesFound == 10) {
+					host.declareWinner();
+				}
 			}
 			else {
-				//set timers for first two guesses for 3 seconds
+				mTimer = new Timer();
+				mTimer.schedule(new TimerTask() {
+					
+					@Override
+					public void run() {
+						host.hide(rcp);
+						grid.hide(rcp);
+						guessList.remove(rcp);
+						
+						RowColumnPair rcp1 = guessList.remove(0); 
+						host.hide(rcp1);
+						grid.hide(rcp1);
+					}
+				}, 3000);
 			}
 			
 		}
@@ -66,18 +104,38 @@ public class GamePlayManager {
 			host.hide(p1);
 			host.hide(p2);
 			
-			//Kill the timers for the first 2 guesses
-			//Start timer for first two
+			//Start timer for the most recently selected 
+			mTimer = new Timer();
+			mTimer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					host.hide(rcp);
+					grid.hide(rcp);
+					guessList.remove(rcp);
+				}
+			}, 3000);
 		}
 		else {
 			throw new Exception("more than 3 cells revealed");
 		}
-		//If it's the second guess, check for match
-		//If it the third then hide the first two
+	}
+	
+	public void reset() {
+		grid.reset();
+		guessList = new LinkedList<RowColumnPair>();
+		
+		if (mTimer != null) {
+			mTimer.cancel();
+			mTimer = null;
+		}
+		mMatchesFound = 0;
 	}
 	
 	public interface MatchingGameView {
 		void show(RowColumnPair rcp, Color color);
 		void hide(RowColumnPair rcp);
+		void declareWinner();
+		
 	}
 }
