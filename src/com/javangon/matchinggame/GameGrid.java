@@ -9,12 +9,12 @@ public class GameGrid {
 	private static final int ROWS = 4;
 	private static final int COLS = 5;
 	
-	private CellColors[][] mColorGrid;
+	private Color[][] mColorGrid;
 	private boolean[][] mRevealedGrid;
 	private boolean[][] mMatchFound;
 	
-	private GameGrid() {
-		mColorGrid = new CellColors[4][5];
+	public GameGrid() {
+		mColorGrid = new Color[4][5];
 		mRevealedGrid = new boolean[4][5];
 		mMatchFound = new boolean[4][5];
 		
@@ -37,8 +37,8 @@ public class GameGrid {
 	}
 	
 	private void placeColorsRandomly() {
-		List<CellColors> colorsList = new LinkedList<CellColors>(null);
-		for(CellColors c: CellColors.values()) {
+		List<Color> colorsList = new LinkedList<Color>();
+		for(Color c: Color.values()) {
 			colorsList.add(c);
 			colorsList.add(c);
 		}
@@ -67,6 +67,18 @@ public class GameGrid {
 	public void setMatched(RowColumnPair p1, RowColumnPair p2) {
 		mMatchFound[p1.getRow()][p1.getColumn()] = true;
 		mMatchFound[p2.getRow()][p2.getColumn()] = true;
+	}
+	
+	public boolean isMatched(RowColumnPair rcp) {
+		return mMatchFound[rcp.getRow()][rcp.getColumn()];
+	}
+	
+	public boolean isRevealed(RowColumnPair rcp) {
+		return mRevealedGrid[rcp.getRow()][rcp.getColumn()];
+	}
+	
+	public Color getColor(RowColumnPair rcp) {
+		return mColorGrid[rcp.getRow()][rcp.getColumn()];
 	}
 
 }

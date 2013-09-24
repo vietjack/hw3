@@ -14,48 +14,130 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:columnCount="5"
         android:rowCount="4" >
 
-        <Button android:id="@+id/button00" />
+        <ImageButton android:id="@+id/button00"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center" />
 
-        <Button android:id="@+id/button01" />
+        <ImageButton android:id="@+id/button01"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button02" />
+        <ImageButton android:id="@+id/button02"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button03" />
+        <ImageButton android:id="@+id/button03"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button04" />
+        <ImageButton android:id="@+id/button04"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button10" />
+        <ImageButton android:id="@+id/button10"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button11" />
+        <ImageButton android:id="@+id/button11"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button12" />
+        <ImageButton android:id="@+id/button12"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button13" />
+        <ImageButton android:id="@+id/button13"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button14" />
+        <ImageButton android:id="@+id/button14"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button20" />
+        <ImageButton android:id="@+id/button20"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button21" />
+        <ImageButton android:id="@+id/button21"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button22" />
+        <ImageButton android:id="@+id/button22"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button23" />
+        <ImageButton android:id="@+id/button23"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button24" />
+        <ImageButton android:id="@+id/button24"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button30" />
+        <ImageButton android:id="@+id/button30"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button31" />
+        <ImageButton android:id="@+id/button31"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button32" />
+        <ImageButton android:id="@+id/button32"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button33" />
+        <ImageButton android:id="@+id/button33"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
 
-        <Button android:id="@+id/button34" />
+        <ImageButton android:id="@+id/button34"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"  />
+
     </GridLayout>
 
     <LinearLayout
