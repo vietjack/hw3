@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +23,7 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 	private TextView mTextViewWinner;
 	private TextView mTimerView;
 	private GridLayout mGridLayout;
+	private Button mButtonConfig;
 	
 	private ColorResourceMap mColorMap;
 	private GamePlayManager mGamePlayManager;
@@ -35,6 +37,7 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 	
 	StartClickHandler mStartHandler;
 	ResetClickHandler mResetHandler;
+	ConfigClickHandler mConfigHandler;
 	
 	private boolean mGameActive = false;
 	
@@ -46,6 +49,7 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 
 		mResetHandler = new ResetClickHandler();
 		mStartHandler = new StartClickHandler();
+		mConfigHandler = new ConfigClickHandler();
 		
 		//Get references to the views in the layout
 		getReferenceToViews();
@@ -56,6 +60,13 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 		mGamePlayManager = new GamePlayManager(this);
 		
 		mTimerView.setText("0");
+	}
+
+	@Override
+	protected void onActivityResult(int ignoredRequestCode, int resultCode, Intent data) {
+		super.onActivityResult(ignoredRequestCode, resultCode, data);
+		if(resultCode == RESULT_OK) {
+		}
 	}
 
 	private void getReferenceToViews() {
@@ -95,9 +106,11 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 		//Grab references to the start and reset buttons.
 		mButtonStart = (Button) findViewById(R.id.buttonStart);
 		mButtonReset = (Button) findViewById(R.id.buttonReset);
+		mButtonConfig = (Button) findViewById(R.id.buttonConfig);
 		
 		mButtonStart.setOnClickListener(mStartHandler);
 		mButtonReset.setOnClickListener(mResetHandler);
+		mButtonConfig.setOnClickListener(mConfigHandler);
 		
 		mTextViewWinner = (TextView) findViewById(R.id.textViewWinner);
 		mTimerView = (TextView) findViewById(R.id.textViewTimer);
@@ -170,6 +183,17 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 			}
 			mTimeElapsed = 0;
 			mTimerView.setText("" + mTimeElapsed);
+		}
+		
+	}
+	
+	private class ConfigClickHandler implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			//Create an intent to start the config activity
+			Intent intent = new Intent(GameActivity.this, ConfigActivity.class);
+			startActivity(intent);
 		}
 		
 	}

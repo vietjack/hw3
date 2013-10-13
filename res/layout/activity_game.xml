@@ -197,6 +197,12 @@
             android:layout_height="wrap_content"
             android:text="Reset" />
 
+        <Button
+            android:id="@+id/buttonConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Config" />
+
     </LinearLayout>
 
     <TextView
