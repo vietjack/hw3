@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +26,6 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 	private GridLayout mGridLayout;
 	private Button mButtonConfig;
 	
-	private ColorResourceMap mColorMap;
 	private GamePlayManager mGamePlayManager;
 	
 	private static final int GRID_ROWS = 4;
@@ -41,6 +41,8 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 	
 	private boolean mGameActive = false;
 	
+	Drawable[] images;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +56,7 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 		//Get references to the views in the layout
 		getReferenceToViews();
 		
-		//Create a new Drawable map to get drawable
-		mColorMap = new ColorResourceMap(getResources());
-		
-		mGamePlayManager = new GamePlayManager(this);
+		mGamePlayManager = new GamePlayManager(this, 1);
 		
 		mTimerView.setText("0");
 	}
@@ -66,6 +65,14 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 	protected void onActivityResult(int ignoredRequestCode, int resultCode, Intent data) {
 		super.onActivityResult(ignoredRequestCode, resultCode, data);
 		if(resultCode == RESULT_OK) {
+			String[] files = data.getStringArrayExtra(ConfigActivity.EXTRA_FILE_PATHS);
+			images = new Drawable[files.length];
+			for(int i=0; i<files.length; i++) {
+				images[i] = Drawable.createFromPath(files[i]);
+			}
+			
+
+			mGamePlayManager = new GamePlayManager(this, files.length);
 		}
 	}
 
@@ -193,12 +200,12 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 		public void onClick(View v) {
 			//Create an intent to start the config activity
 			Intent intent = new Intent(GameActivity.this, ConfigActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, 1);
 		}
 		
 	}
 
-	public void show(final RowColumnPair rcp, final Color color) {
+	public void show(final RowColumnPair rcp, final int type) {
 		runOnUiThread(new Runnable() {
 			
 			@Override
@@ -206,7 +213,7 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 				int r = rcp.getRow();
 				int c = rcp.getColumn();
 				ImageButton b = mButtonGrid[r][c];
-				b.setImageDrawable(mColorMap.getDrawable(color));
+				b.setImageDrawable(images[type]);
 			}
 		});
 	}

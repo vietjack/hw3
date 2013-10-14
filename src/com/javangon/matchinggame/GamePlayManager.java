@@ -17,8 +17,8 @@ public class GamePlayManager {
 	
 	private int mMatchesFound = 0;
 	
-	public GamePlayManager(MatchingGameView host) {
-		grid = new GameGrid();
+	public GamePlayManager(MatchingGameView host, int numTypes) {
+		grid = new GameGrid(numTypes);
 		guessList = new LinkedList<RowColumnPair>();
 		this.host = host;
 	}
@@ -40,7 +40,7 @@ public class GamePlayManager {
 		int revealed = guessList.size();
 		//Set cell as revealed
 		grid.reveal(rcp);
-		host.show(rcp, grid.getColor(rcp));
+		host.show(rcp, grid.getType(rcp));
 		
 		//If it's the first guess, reveal for 3 seconds
 		if(revealed == 1) {
@@ -61,10 +61,10 @@ public class GamePlayManager {
 			RowColumnPair secondGuess = rcp;
 			
 			//Check to see if it's a match
-			Color c1 = grid.getColor(firstGuess);  //Get the first guess
-			Color c2 = grid.getColor(secondGuess); //Get the second guess color
+			int c1 = grid.getType(firstGuess);  //Get the first guess
+			int c2 = grid.getType(secondGuess); //Get the second guess color
 			
-			if (c1.equals(c2)) {
+			if (c1 == c2) {
 				//Kill timers for c1 and c2
 				//Set as matched in the grid
 				grid.setMatched(firstGuess, secondGuess);
@@ -133,7 +133,7 @@ public class GamePlayManager {
 	}
 	
 	public interface MatchingGameView {
-		void show(RowColumnPair rcp, Color color);
+		void show(RowColumnPair rcp, int type);
 		void hide(RowColumnPair rcp);
 		void declareWinner();
 		

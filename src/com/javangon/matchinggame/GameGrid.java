@@ -9,14 +9,16 @@ public class GameGrid {
 	private static final int ROWS = 4;
 	private static final int COLS = 5;
 	
-	private Color[][] mColorGrid;
+	private int[][] mTypeGrid;
 	private boolean[][] mRevealedGrid;
 	private boolean[][] mMatchFound;
+	private int numTypes;
 	
-	public GameGrid() {
-		mColorGrid = new Color[4][5];
+	public GameGrid(int numTypes) {
+		mTypeGrid = new int[4][5];
 		mRevealedGrid = new boolean[4][5];
 		mMatchFound = new boolean[4][5];
+		this.numTypes = numTypes;
 		
 		reset();
 	}
@@ -29,7 +31,7 @@ public class GameGrid {
 			r = i / COLS;
 			c = i % COLS;
 			
-			mColorGrid[r][c] = null;
+			mTypeGrid[r][c] = -1;
 			mRevealedGrid[r][c] = false;
 			mMatchFound[r][c] = false;
 		}
@@ -37,10 +39,11 @@ public class GameGrid {
 	}
 	
 	private void placeColorsRandomly() {
-		List<Color> colorsList = new LinkedList<Color>();
-		for(Color c: Color.values()) {
-			colorsList.add(c);
-			colorsList.add(c);
+		List<Integer> typesList = new LinkedList<Integer>();
+		for(int j = 0; j < 10;  j++) {
+			Integer type = Integer.valueOf(j % numTypes);
+			typesList.add(type);
+			typesList.add(type);
 		}
 		
 		List<Integer> cellIndexes = new ArrayList<Integer>();
@@ -52,7 +55,7 @@ public class GameGrid {
 		for(Integer i: cellIndexes) {
 			int r = i.intValue() / COLS;
 			int c = i.intValue() % COLS;
-			mColorGrid[r][c] = colorsList.remove(0);
+			mTypeGrid[r][c] = typesList.remove(0);
 		}
 	}
 	
@@ -77,8 +80,8 @@ public class GameGrid {
 		return mRevealedGrid[rcp.getRow()][rcp.getColumn()];
 	}
 	
-	public Color getColor(RowColumnPair rcp) {
-		return mColorGrid[rcp.getRow()][rcp.getColumn()];
+	public int getType(RowColumnPair rcp) {
+		return mTypeGrid[rcp.getRow()][rcp.getColumn()];
 	}
 
 }
