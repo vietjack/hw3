@@ -5,6 +5,10 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -67,8 +71,13 @@ public class GameActivity extends Activity implements OnClickListener, MatchingG
 		if(resultCode == RESULT_OK) {
 			String[] files = data.getStringArrayExtra(ConfigActivity.EXTRA_FILE_PATHS);
 			images = new Drawable[files.length];
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inSampleSize = 5;
+			Resources res = getResources();
 			for(int i=0; i<files.length; i++) {
-				images[i] = Drawable.createFromPath(files[i]);
+				Bitmap bmp = BitmapFactory.decodeFile(files[i], options);
+				BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+				images[i] = drawable;
 			}
 			
 

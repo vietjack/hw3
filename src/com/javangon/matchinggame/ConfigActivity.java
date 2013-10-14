@@ -6,7 +6,9 @@ import java.io.FilenameFilter;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -147,12 +149,16 @@ public class ConfigActivity extends ListActivity implements OnClickListener {
 			if(!path.endsWith(File.separator)){
 				path +=  File.separator;
 			}
+			
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inSampleSize = 10;
+			Resources res = getResources();
+			Bitmap bmp = BitmapFactory.decodeFile(path + files[position], options);
+			BitmapDrawable drawable = new BitmapDrawable(res, bmp);
+			
 			ImageView tn = (ImageView) convertView.findViewById(R.id.thumbnail);
-			Drawable drawable = Drawable.createFromPath(path + files[position]);
 			
-			
-			
-			Bitmap bb=((BitmapDrawable) drawable).getBitmap();
+			Bitmap bb=drawable.getBitmap();
 
 			int width = bb.getWidth();
 			int height = bb.getHeight();           
